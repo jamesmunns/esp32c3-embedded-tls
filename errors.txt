@@ -1,0 +1,879 @@
+```bash
+cargo build
+   Compiling darling_core v0.20.10
+   Compiling serde_derive v1.0.204
+   Compiling esp-build v0.1.0
+   Compiling strum_macros v0.26.4
+   Compiling futures-macro v0.3.30
+   Compiling toml_edit v0.21.1
+   Compiling polyval v0.6.2
+   Compiling elliptic-curve v0.13.8
+   Compiling atomic-polyfill v1.0.3
+   Compiling portable-atomic v1.7.0
+error: cfg(portable_atomic_unsafe_assume_single_core) does not compatible with this target;
+       if you need cfg(portable_atomic_unsafe_assume_single_core) support for this target,
+       please submit an issue at <https://github.com/taiki-e/portable-atomic>
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:352:1
+    |
+352 | / compile_error!(
+353 | |     "cfg(portable_atomic_unsafe_assume_single_core) does not compatible with this target;\n\
+354 | |      if you need cfg(portable_atomic_unsafe_assume_single_core) support for this target,\n\
+355 | |      please submit an issue at <https://github.com/taiki-e/portable-atomic>"
+356 | | );
+    | |_^
+
+error[E0433]: failed to resolve: could not find `AtomicU8` in `imp`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:640:14
+    |
+640 |         imp::AtomicU8::is_lock_free()
+    |              ^^^^^^^^ could not find `AtomicU8` in `imp`
+    |
+help: a struct with a similar name exists
+    |
+640 |         imp::AtomicU128::is_lock_free()
+    |              ~~~~~~~~~~
+help: consider importing this struct
+    |
+441 + use core::sync::atomic::AtomicU8;
+    |
+help: if you import `AtomicU8`, refer to it directly
+    |
+640 -         imp::AtomicU8::is_lock_free()
+640 +         AtomicU8::is_lock_free()
+    |
+
+error[E0433]: failed to resolve: could not find `AtomicU8` in `imp`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:662:14
+    |
+662 |         imp::AtomicU8::is_always_lock_free()
+    |              ^^^^^^^^ could not find `AtomicU8` in `imp`
+    |
+help: a struct with a similar name exists
+    |
+662 |         imp::AtomicU128::is_always_lock_free()
+    |              ~~~~~~~~~~
+help: consider importing this struct
+    |
+441 + use core::sync::atomic::AtomicU8;
+    |
+help: if you import `AtomicU8`, refer to it directly
+    |
+662 -         imp::AtomicU8::is_always_lock_free()
+662 +         AtomicU8::is_always_lock_free()
+    |
+
+error[E0412]: cannot find type `AtomicU8` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1373:37
+     |
+1373 |     fn as_atomic_u8(&self) -> &imp::AtomicU8 {
+     |                                     ^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+help: a struct with a similar name exists
+     |
+1373 |     fn as_atomic_u8(&self) -> &imp::AtomicU128 {
+     |                                     ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU8;
+     |
+help: if you import `AtomicU8`, refer to it directly
+     |
+1373 -     fn as_atomic_u8(&self) -> &imp::AtomicU8 {
+1373 +     fn as_atomic_u8(&self) -> &AtomicU8 {
+     |
+
+error[E0412]: cannot find type `AtomicU8` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1376:56
+     |
+1376 |         unsafe { &*(self as *const Self as *const imp::AtomicU8) }
+     |                                                        ^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+help: a struct with a similar name exists
+     |
+1376 |         unsafe { &*(self as *const Self as *const imp::AtomicU128) }
+     |                                                        ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU8;
+     |
+help: if you import `AtomicU8`, refer to it directly
+     |
+1376 -         unsafe { &*(self as *const Self as *const imp::AtomicU8) }
+1376 +         unsafe { &*(self as *const Self as *const AtomicU8) }
+     |
+
+error[E0412]: cannot find type `AtomicPtr` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1398:17
+     |
+1398 |     inner: imp::AtomicPtr<T>,
+     |                 ^^^^^^^^^ not found in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:60
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                            ^^^^^^^^^
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicPtr;
+     |
+help: if you import `AtomicPtr`, refer to it directly
+     |
+1398 -     inner: imp::AtomicPtr<T>,
+1398 +     inner: AtomicPtr<T>,
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicPtr` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1453:28
+     |
+1453 |         Self { inner: imp::AtomicPtr::new(p) }
+     |                            ^^^^^^^^^ could not find `AtomicPtr` in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:60
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                            ^^^^^^^^^
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicPtr;
+     |
+441  + use crate::AtomicPtr;
+     |
+help: if you import `AtomicPtr`, refer to it directly
+     |
+1453 -         Self { inner: imp::AtomicPtr::new(p) }
+1453 +         Self { inner: AtomicPtr::new(p) }
+     |
+
+error[E0412]: cannot find type `AtomicPtr` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1506:15
+     |
+1506 |         <imp::AtomicPtr<T>>::is_lock_free()
+     |               ^^^^^^^^^ not found in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:60
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                            ^^^^^^^^^
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicPtr;
+     |
+help: if you import `AtomicPtr`, refer to it directly
+     |
+1506 -         <imp::AtomicPtr<T>>::is_lock_free()
+1506 +         <AtomicPtr<T>>::is_lock_free()
+     |
+
+error[E0412]: cannot find type `AtomicPtr` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1528:15
+     |
+1528 |         <imp::AtomicPtr<T>>::is_always_lock_free()
+     |               ^^^^^^^^^ not found in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:60
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                            ^^^^^^^^^
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicPtr;
+     |
+help: if you import `AtomicPtr`, refer to it directly
+     |
+1528 -         <imp::AtomicPtr<T>>::is_always_lock_free()
+1528 +         <AtomicPtr<T>>::is_always_lock_free()
+     |
+
+error[E0412]: cannot find type `AtomicIsize` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3997:17
+     |
+3997 |     atomic_int!(AtomicIsize, isize, 8);
+     |                 ^^^^^^^^^^^ not found in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:47
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                               ^^^^^^^^^^^
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicIsize;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicIsize` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3997:17
+     |
+3997 |     atomic_int!(AtomicIsize, isize, 8);
+     |                 ^^^^^^^^^^^ could not find `AtomicIsize` in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:47
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                               ^^^^^^^^^^^
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicIsize;
+     |
+441  + use crate::AtomicIsize;
+     |
+
+error[E0412]: cannot find type `AtomicUsize` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3999:17
+     |
+3999 |     atomic_int!(AtomicUsize, usize, 8);
+     |                 ^^^^^^^^^^^ not found in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:82
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                                                  ^^^^^^^^^^^
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicUsize;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicUsize` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3999:17
+     |
+3999 |     atomic_int!(AtomicUsize, usize, 8);
+     |                 ^^^^^^^^^^^ could not find `AtomicUsize` in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:82
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                                                  ^^^^^^^^^^^
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicUsize;
+     |
+441  + use crate::AtomicUsize;
+     |
+
+error[E0412]: cannot find type `AtomicI8` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4007:17
+     |
+4007 |     atomic_int!(AtomicI8, i8, 1);
+     |                 ^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicI128` defined here
+     |
+help: a struct with a similar name exists
+     |
+4007 |     atomic_int!(AtomicI128, i8, 1);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicI8;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicI8` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4007:17
+     |
+4007 |     atomic_int!(AtomicI8, i8, 1);
+     |                 ^^^^^^^^ could not find `AtomicI8` in `imp`
+     |
+help: a struct with a similar name exists
+     |
+4007 |     atomic_int!(AtomicI128, i8, 1);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicI8;
+     |
+441  + use crate::AtomicI8;
+     |
+
+error[E0412]: cannot find type `AtomicU8` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4008:17
+     |
+4008 |     atomic_int!(AtomicU8, u8, 1);
+     |                 ^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+help: a struct with a similar name exists
+     |
+4008 |     atomic_int!(AtomicU128, u8, 1);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU8;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicU8` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4008:17
+     |
+4008 |     atomic_int!(AtomicU8, u8, 1);
+     |                 ^^^^^^^^ could not find `AtomicU8` in `imp`
+     |
+help: a struct with a similar name exists
+     |
+4008 |     atomic_int!(AtomicU128, u8, 1);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicU8;
+     |
+441  + use crate::AtomicU8;
+     |
+
+error[E0412]: cannot find type `AtomicI16` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4011:17
+     |
+4011 |     atomic_int!(AtomicI16, i16, 2);
+     |                 ^^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicI128` defined here
+     |
+help: a struct with a similar name exists
+     |
+4011 |     atomic_int!(AtomicI128, i16, 2);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicI16;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicI16` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4011:17
+     |
+4011 |     atomic_int!(AtomicI16, i16, 2);
+     |                 ^^^^^^^^^ could not find `AtomicI16` in `imp`
+     |
+help: a struct with a similar name exists
+     |
+4011 |     atomic_int!(AtomicI128, i16, 2);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicI16;
+     |
+441  + use crate::AtomicI16;
+     |
+
+error[E0412]: cannot find type `AtomicU16` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4012:17
+     |
+4012 |     atomic_int!(AtomicU16, u16, 2);
+     |                 ^^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+help: a struct with a similar name exists
+     |
+4012 |     atomic_int!(AtomicU128, u16, 2);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU16;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicU16` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4012:17
+     |
+4012 |     atomic_int!(AtomicU16, u16, 2);
+     |                 ^^^^^^^^^ could not find `AtomicU16` in `imp`
+     |
+help: a struct with a similar name exists
+     |
+4012 |     atomic_int!(AtomicU128, u16, 2);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicU16;
+     |
+441  + use crate::AtomicU16;
+     |
+
+error[E0412]: cannot find type `AtomicI32` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4015:17
+     |
+4015 |     atomic_int!(AtomicI32, i32, 4);
+     |                 ^^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicI128` defined here
+     |
+help: a struct with a similar name exists
+     |
+4015 |     atomic_int!(AtomicI128, i32, 4);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicI32;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicI32` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4015:17
+     |
+4015 |     atomic_int!(AtomicI32, i32, 4);
+     |                 ^^^^^^^^^ could not find `AtomicI32` in `imp`
+     |
+help: a struct with a similar name exists
+     |
+4015 |     atomic_int!(AtomicI128, i32, 4);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicI32;
+     |
+441  + use crate::AtomicI32;
+     |
+
+error[E0412]: cannot find type `AtomicU32` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2372:26
+     |
+2372 |         atomic_int!(int, AtomicU32, $int_type, $align);
+     |                          ^^^^^^^^^
+...
+4016 |     atomic_int!(AtomicU32, u32, 4);
+     |     ------------------------------ in this macro invocation
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+     = note: this error originates in the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: a struct with a similar name exists
+     |
+2372 |         atomic_int!(int, AtomicU128, $int_type, $align);
+     |                          ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU32;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicU32` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2372:26
+     |
+2372 |         atomic_int!(int, AtomicU32, $int_type, $align);
+     |                          ^^^^^^^^^ could not find `AtomicU32` in `imp`
+...
+4016 |     atomic_int!(AtomicU32, u32, 4);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: a struct with a similar name exists
+     |
+2372 |         atomic_int!(int, AtomicU128, $int_type, $align);
+     |                          ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicU32;
+     |
+441  + use crate::AtomicU32;
+     |
+
+error[E0412]: cannot find type `AtomicI64` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4019:17
+     |
+4019 |     atomic_int!(AtomicI64, i64, 8);
+     |                 ^^^^^^^^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicI128` defined here
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:36
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                    ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:394:34
+     |
+394  | pub(crate) use self::arm_linux::{AtomicI64, AtomicU64};
+     |                                  ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:324:37
+     |
+324  |     pub(crate) use self::fallback::{AtomicI64, AtomicU64};
+     |                                     ^^^^^^^^^
+help: a struct with a similar name exists
+     |
+4019 |     atomic_int!(AtomicI128, i64, 8);
+     |                 ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicI64;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicI64` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4019:17
+     |
+4019 |     atomic_int!(AtomicI64, i64, 8);
+     |                 ^^^^^^^^^ could not find `AtomicI64` in `imp`
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:36
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                    ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:394:34
+     |
+394  | pub(crate) use self::arm_linux::{AtomicI64, AtomicU64};
+     |                                  ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:324:37
+     |
+324  |     pub(crate) use self::fallback::{AtomicI64, AtomicU64};
+     |                                     ^^^^^^^^^
+help: a struct with a similar name exists
+     |
+4019 |     atomic_int!(AtomicI128, i64, 8);
+     |                 ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicI64;
+     |
+441  + use crate::AtomicI64;
+     |
+
+error[E0412]: cannot find type `AtomicU64` in module `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2377:26
+     |
+2377 |         atomic_int!(int, AtomicU64, $int_type, $align);
+     |                          ^^^^^^^^^
+...
+4020 |     atomic_int!(AtomicU64, u64, 8);
+     |     ------------------------------ in this macro invocation
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/atomic128/macros.rs:6:9
+     |
+6    |         pub(crate) struct $atomic_type {
+     |         ------------------------------ similarly named struct `AtomicU128` defined here
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:71
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                                       ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:394:45
+     |
+394  | pub(crate) use self::arm_linux::{AtomicI64, AtomicU64};
+     |                                             ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:324:48
+     |
+324  |     pub(crate) use self::fallback::{AtomicI64, AtomicU64};
+     |                                                ^^^^^^^^^
+     = note: this error originates in the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: a struct with a similar name exists
+     |
+2377 |         atomic_int!(int, AtomicU128, $int_type, $align);
+     |                          ~~~~~~~~~~
+help: consider importing this struct
+     |
+441  + use core::sync::atomic::AtomicU64;
+     |
+
+error[E0433]: failed to resolve: could not find `AtomicU64` in `imp`
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2377:26
+     |
+2377 |         atomic_int!(int, AtomicU64, $int_type, $align);
+     |                          ^^^^^^^^^ could not find `AtomicU64` in `imp`
+...
+4020 |     atomic_int!(AtomicU64, u64, 8);
+     |     ------------------------------ in this macro invocation
+     |
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:269:71
+     |
+269  | pub(crate) use self::core_atomic::{AtomicI64, AtomicIsize, AtomicPtr, AtomicU64, AtomicUsize};
+     |                                                                       ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:394:45
+     |
+394  | pub(crate) use self::arm_linux::{AtomicI64, AtomicU64};
+     |                                             ^^^^^^^^^
+note: found an item that was configured out
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/imp/mod.rs:324:48
+     |
+324  |     pub(crate) use self::fallback::{AtomicI64, AtomicU64};
+     |                                                ^^^^^^^^^
+     = note: this error originates in the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: a struct with a similar name exists
+     |
+2377 |         atomic_int!(int, AtomicU128, $int_type, $align);
+     |                          ~~~~~~~~~~
+help: consider importing one of these items
+     |
+441  + use core::sync::atomic::AtomicU64;
+     |
+441  + use crate::AtomicU64;
+     |
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1420:26
+     |
+1420 |         fmt::Debug::fmt(&self.load(Ordering::Relaxed), f)
+     |                          ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1428:28
+     |
+1428 |         fmt::Pointer::fmt(&self.load(Ordering::Relaxed), f)
+     |                            ^^^^ cannot infer type for type parameter `T`
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1452:9
+     |
+1452 |         static_assert_layout!(AtomicPtr<()>, *mut ());
+     |         --------------------------------------------- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `static_assert_layout` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:1972:13
+     |
+1972 |             self.as_atomic_usize().fetch_add(val, order) as *mut T
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2016:13
+     |
+2016 |             self.as_atomic_usize().fetch_sub(val, order) as *mut T
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2075:13
+     |
+2075 |             self.as_atomic_usize().fetch_or(val, order) as *mut T
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2132:13
+     |
+2132 |             self.as_atomic_usize().fetch_and(val, order) as *mut T
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2188:13
+     |
+2188 |             self.as_atomic_usize().fetch_xor(val, order) as *mut T
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2236:13
+     |
+2236 |             self.as_atomic_usize().bit_set(bit, order)
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2281:13
+     |
+2281 |             self.as_atomic_usize().bit_clear(bit, order)
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0282]: type annotations needed
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2326:13
+     |
+2326 |             self.as_atomic_usize().bit_toggle(bit, order)
+     |             ^^^^ cannot infer type for type parameter `T`
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |           let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |               ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2333:9
+     |
+2333 | /         static_assert!(
+2334 | |             core::mem::size_of::<AtomicPtr<()>>() == core::mem::size_of::<AtomicUsize>()
+2335 | |         );
+     | |_________- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |           let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |               ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:2336:9
+     |
+2336 | /         static_assert!(
+2337 | |             core::mem::align_of::<AtomicPtr<()>>() == core::mem::align_of::<AtomicUsize>()
+2338 | |         );
+     | |_________- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3997:5
+     |
+3997 |     atomic_int!(AtomicIsize, isize, 8);
+     |     ---------------------------------- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:3999:5
+     |
+3999 |     atomic_int!(AtomicUsize, usize, 8);
+     |     ---------------------------------- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4007:5
+     |
+4007 |     atomic_int!(AtomicI8, i8, 1);
+     |     ---------------------------- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4008:5
+     |
+4008 |     atomic_int!(AtomicU8, u8, 1);
+     |     ---------------------------- in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4011:5
+     |
+4011 |     atomic_int!(AtomicI16, i16, 2);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4012:5
+     |
+4012 |     atomic_int!(AtomicU16, u16, 2);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4015:5
+     |
+4015 |     atomic_int!(AtomicI32, i32, 4);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4016:5
+     |
+4016 |     atomic_int!(AtomicU32, u32, 4);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4019:5
+     |
+4019 |     atomic_int!(AtomicI64, i64, 8);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0730]: cannot pattern-match on an array without a fixed length
+    --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/utils.rs:13:13
+     |
+13   |         let [] = [(); true as usize - $crate::utils::_assert_is_bool($cond) as usize];
+     |             ^^
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/portable-atomic-1.7.0/src/lib.rs:4020:5
+     |
+4020 |     atomic_int!(AtomicU64, u64, 8);
+     |     ------------------------------ in this macro invocation
+     |
+     = note: this error originates in the macro `static_assert` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0282, E0412, E0433, E0730.
+For more information about an error, try `rustc --explain E0282`.
+error: could not compile `portable-atomic` (lib) due to 63 previous errors
+warning: build failed, waiting for other jobs to finish...
+    Building [============>            ] 108/204: strum_macros, serde_derive, darling_core, futures-macro, toml_edit, esp-build
+    ```
